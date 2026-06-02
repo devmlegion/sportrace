@@ -39,7 +39,6 @@
       <option value="11760">Nível 2 - $ 11.760</option>
       <option value="13800">Nível 3 - $ 13.800</option>
       <option value="17400">Nível 4 - $ 17.400</option>
-      <option value="22200">Nível 5 - $ 22.200</option>
     </select>
   </div>
 
@@ -50,7 +49,6 @@
       <option value="9600">Nível 1 - $ 9.600</option>
       <option value="11400">Nível 2 - $ 11.400</option>
       <option value="13200">Nível 3 - $ 13.200</option>
-      <option value="17400">Nível 4 - $ 17.400</option>
     </select>
   </div>
 
@@ -61,7 +59,6 @@
       <option value="11400">Nível 1 - $ 11.400</option>
       <option value="13200">Nível 2 - $ 13.200</option>
       <option value="17400">Nível 3 - $ 17.400</option>
-      <option value="22200">Nível 4 - $ 22.200</option>
     </select>
   </div>
 
@@ -96,13 +93,23 @@
     <input type="checkbox" data-price="7800">
   </div>
 
-  <div class="checkbox-row combo">
-    <label>Full Tuning <span class="price">$ 84.000</span></label>
+  <div class="checkbox-row">
+    <label>Ajuste de Roda <span class="price">$ 4.200</span></label>
+    <input type="checkbox" data-price="4200">
+  </div>
+
+  <div class="checkbox-row">
+    <label>Suspensao a Ar <span class="price">$ 5.200</span>
+    </label><input type="checkbox" data-price="5200">
+  </div>
+
+  <div class="checkbox-row">
+    <label>Full Tuning <span class="price">$ 70.200</span></label>
     <input type="checkbox" id="fullTuning">
   </div>
 
-  <div class="checkbox-row combo">
-    <label>Full Tuning+Blindagem <span class="price">$ 116.400</span></label>
+  <div class="checkbox-row">
+    <label>Full Tuning+Blindagem <span class="price">$ 102.600</span></label>
     <input type="checkbox" id="fullTuningBlind">
   </div>
 
@@ -116,7 +123,7 @@
   <h2 class="servicos-header">Estética</h2>
 
   <div class="checkbox-row"><label>Rodas <span class="price">$ 4.200</span></label><input type="checkbox" data-price="4200"></div>
-  <div class="checkbox-row"><label>Cor das Rodas <span class="price">$ 1.400</span></label><input type="checkbox" data-price="1400"></div>
+  <div class="checkbox-row"><label>Cor das Rodas <span class="price">$ 1.920</span></label><input type="checkbox" data-price="1920"></div>
   <div class="checkbox-row"><label>Cor da Fumaça <span class="price">$ 2.160</span></label><input type="checkbox" data-price="2160"></div>
   <div class="checkbox-row"><label>Insulfilm <span class="price">$ 1.440</span></label><input type="checkbox" data-price="1440"></div>
   <div class="checkbox-row"><label>Placa <span class="price">$ 3.000</span></label><input type="checkbox" data-price="3000"></div>
@@ -145,15 +152,7 @@
     </div>
   </div>
 
-  <h2 class="vendas-header">
-  Extras
-  <label class="vendas-checkbox-label"></label>
-</h2>
-
-  <div class="checkbox-row"><label>Ajuste de Roda <span class="price">$ 4.200</span></label><input type="checkbox" data-price="4200"></div>
-  <div class="checkbox-row"><label>Suspensao a Ar <span class="price">$ 5.200</span></label><input type="checkbox" data-price="5200"></div>
-
-  <div class="counter-row">
+<div class="counter-row">
     <div class="counter-label">Extras <span class="price">$ 1.800</span></div>
     <div class="counter-controls">
       <button onclick="changeQty(this,-1)">-</button>
@@ -161,6 +160,7 @@
       <button onclick="changeQty(this,1)">+</button>
     </div>
   </div>
+ 
 </section>
 
 <!-- ================= SERVIÇOS ================= -->
@@ -168,7 +168,7 @@
   <h2 class="servicos-header">Serviços</h2>
 
   <div class="checkbox-row"><label>Atendimento no Sul <span class="price">$ 700</span></label><input type="checkbox" data-price="700"></div>
-  <div class="checkbox-row"><label>Atendimento no Norte <span class="price">$ 1.200</span></label><input type="checkbox" data-price="1200"></div>
+  <div class="checkbox-row combo"><label>Atendimento no Norte <span class="price">$ 1.200</span></label><input type="checkbox" data-price="1200"></div>
 
   <div class="counter-row">
     <div class="counter-label">Reparo Carro <span class="price">$ 1200</span></div>
@@ -215,7 +215,8 @@
     </div>
   </div>
 
-  <h2 class="vendas-header">
+  <!-- <h2 class="vendas-header"> -->
+<h2 class="vendas-header vendas-section">
   Vendas
   <label class="vendas-checkbox-label">
     <input type="checkbox" id="vendasSwitch">
@@ -225,30 +226,77 @@
 
   <div class="counter-row">
     <div class="counter-label">Reparo<span class="price">$ 1200</span></div>
+
     <div class="counter-controls">
       <button onclick="changeQty(this,-1)">-</button>
-      <span data-qty data-price="1200">0</span>
+
+      <input
+        type="number"
+        class="qty-input"
+        min="0"
+        max="500"
+        value="0"
+        data-qty
+        data-price="1200"
+        oninput="updateInputQty(this)"
+      >
+
       <button onclick="changeQty(this,1)">+</button>
     </div>
   </div>
 
   <div class="counter-row">
     <div class="counter-label">Pneu<span class="price">$ 900</span></div>
+
     <div class="counter-controls">
       <button onclick="changeQty(this,-1)">-</button>
-      <span data-qty data-price="900">0</span>
+
+      <input
+        type="number"
+        class="qty-input"
+        min="0"
+        max="500"
+        value="0"
+        data-qty
+        data-price="900"
+        oninput="updateInputQty(this)"
+      >
+
       <button onclick="changeQty(this,1)">+</button>
     </div>
   </div>
 
   <div class="counter-row">
     <div class="counter-label">Chave de Roda<span class="price">$ 960</span></div>
+
     <div class="counter-controls">
       <button onclick="changeQty(this,-1)">-</button>
-      <span data-qty data-price="960">0</span>
+
+      <input
+        type="number"
+        class="qty-input"
+        min="0"
+        max="500"
+        value="0"
+        data-qty
+        data-price="960"
+        oninput="updateInputQty(this)"
+      >
+
       <button onclick="changeQty(this,1)">+</button>
     </div>
   </div>
+
+  <div class="comissao-row counter-row">
+  <div class="counter-label">
+    Valor à Depositar - 30%
+  </div>
+
+  <div id="comissao30">
+    0
+  </div>
+</div>
+
 </section>
 
 </main>
