@@ -175,6 +175,39 @@ select:focus {
   margin: 0; /* remove margens extras */
 }
 
+/* ================= COUNTER - CAMPOS EDITÁVEIS ================= */
+
+.qty-input {
+
+  width: 60px;
+
+  height: 28px;
+
+  text-align: center;
+
+  border-radius: 6px;
+
+  border: 1px solid #444;
+
+  background: #1f1a12;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  padding: 2px 4px;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.qty-input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /* ================= COUNTER ================= */
 .counter-row {
   display: flex;
@@ -317,6 +350,26 @@ body.theme-light select {
   border: 1px solid #e0d7c7;
 }
 
+body.theme-light .qty-input {
+
+  background: #fdf9f3;
+
+  color: #1a1a1a;
+
+  border: 1px solid #e0d7c7;
+
+}
+
+body.theme-light .qty-input:focus {
+
+  outline: none;
+
+  border-color: #c96c1a;
+
+  box-shadow: 0 0 6px rgba(201,108,26,0.25);
+
+}
+
 body.theme-light select:focus {
   outline: 6px solid #c96c1a;
 }
@@ -429,6 +482,7 @@ body,
 .bot-bar,
 .box,
 select,
+.qty-input,
 .counter-controls button {
   transition:
     background-color 0.9s ease,
@@ -620,124 +674,693 @@ body.theme-light .vendas-checkbox-label input:checked + i {
   text-shadow: none;
 }
 
-/* ============================================= */
-/*              TEMA SPORT RACE                  */
-/* ============================================= */
+/* =========================================================
+   TEMA PERFORMANCE GT PREMIUM
+   ========================================================= */
 
 body.theme-neon {
+
   background:
-    linear-gradient(rgba(0,0,0,0.88), rgba(0,0,0,0.92)),
-    url("logo.png") center center / 65% no-repeat fixed;
-    
-  background-color: #000;
-  color: #f5f5f5;
+    linear-gradient(
+      rgba(8,8,8,0.94),
+      rgba(12,12,12,0.97)
+    ),
+    url("logo.png"),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+
+  background-size:
+    cover,
+    48%,
+    auto;
+
+  background-position:
+    center,
+    center,
+    center;
+
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    repeat;
+
+  background-attachment:
+    fixed,
+    fixed,
+    fixed;
+
+  background-color: #050505;
+
+  color: #f2f2f2;
+
   font-family: 'Orbitron', sans-serif;
+
+  overflow-x: hidden;
 }
 
-/* TOP BAR */
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
 body.theme-neon .top-bar {
-  background: linear-gradient(180deg, #0a0a0a, #1a1a1a);
-  box-shadow: 0 0 18px rgba(255, 0, 0, 0.35);
-  border-bottom: 1px solid #ff1a1a;
-}
 
-/* TOTAL */
-body.theme-neon .total-box {
-  color: #ff2b2b;
-  text-shadow:
-    0 0 6px rgba(255,0,0,0.8),
-    0 0 14px rgba(255,0,0,0.5);
-}
+  position: sticky;
 
-/* BOXES */
-body.theme-neon .box {
-  background: rgba(12, 12, 12, 0.88);
-  border: 1px solid rgba(255,0,0,0.25);
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #1a1a1a,
+      #0f0f0f
+    );
+
+  border-bottom:
+    1px solid rgba(255,59,59,0.35);
 
   box-shadow:
-    0 0 16px rgba(255,0,0,0.12),
-    inset 0 0 12px rgba(255,255,255,0.03);
 
-  backdrop-filter: blur(10px);
+    0 0 20px rgba(255,59,59,0.12),
+
+    inset 0 -1px 0 rgba(255,255,255,0.04);
 }
 
-/* TITULOS */
+/* Linha animada RPM */
+body.theme-neon .top-bar::after {
+
+  content: "";
+
+  position: absolute;
+
+  bottom: 0;
+
+  left: -100%;
+
+  width: 100%;
+
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ff3b3b,
+      transparent
+    );
+
+  animation: rpmBar 2.5s linear infinite;
+}
+
+/* =========================================================
+   TOTAL
+   ========================================================= */
+
+body.theme-neon .total-box {
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.25);
+}
+
+body.theme-neon .total-box strong {
+
+  color: #ff4b4b;
+
+  font-family: 'Orbitron', sans-serif;
+
+  letter-spacing: 3px;
+
+  text-shadow:
+
+    0 0 8px rgba(255,75,75,0.65),
+
+    0 0 18px rgba(255,75,75,0.35);
+
+  animation: totalPulse 2.8s ease-in-out infinite;
+}
+
+/* =========================================================
+   BOTÕES SUPERIORES
+   ========================================================= */
+
+body.theme-neon .reset-btn,
+body.theme-neon .theme-toggle-btn {
+
+  color: #ff4b4b;
+
+  border-color: rgba(255,75,75,0.4);
+
+  transition:
+    all 0.25s ease;
+}
+
+body.theme-neon .theme-toggle-btn:hover,
+body.theme-neon .reset-btn:hover {
+
+  background: #ff3b3b;
+
+  color: #fff;
+
+  box-shadow:
+    0 0 14px rgba(255,59,59,0.35);
+}
+
+/* =========================================================
+   BOXES
+   ========================================================= */
+
+body.theme-neon .box {
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22,22,22,0.94),
+      rgba(10,10,10,0.96)
+    );
+
+  border-radius: 18px;
+
+  border:
+    1px solid rgba(255,255,255,0.05);
+
+  border-top:
+    1px solid rgba(255,59,59,0.28);
+
+  backdrop-filter: blur(14px);
+
+  box-shadow:
+
+    0 10px 30px rgba(0,0,0,0.35),
+
+    inset 0 1px 0 rgba(255,255,255,0.04),
+
+    inset 0 0 18px rgba(255,255,255,0.02);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Glow ao passar mouse */
+body.theme-neon .box:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+
+    0 12px 35px rgba(0,0,0,0.45),
+
+    0 0 18px rgba(255,59,59,0.08),
+
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* Shine metálico */
+body.theme-neon .box::after {
+
+  content: "";
+
+  position: absolute;
+
+  top: -140%;
+
+  left: -40%;
+
+  width: 70%;
+
+  height: 320%;
+
+  background:
+    linear-gradient(
+      rgba(255,255,255,0),
+      rgba(255,255,255,0.045),
+      rgba(255,255,255,0)
+    );
+
+  transform: rotate(25deg);
+
+  animation: shineMove 8s linear infinite;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   TITULOS
+   ========================================================= */
+
 body.theme-neon h2.servicos-header,
 body.theme-neon h2.vendas-header {
-  color: #ff2a2a;
-  border-bottom: 1px solid #ff2a2a;
-  text-shadow: 0 0 8px rgba(255,0,0,0.6);
+
+  color: #ff3b3b;
+
+  letter-spacing: 2px;
+
+  border-bottom:
+    1px solid rgba(255,59,59,0.25);
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.08);
 }
 
-/* TEXTOS */
+/* =========================================================
+   LABELS
+   ========================================================= */
+
 body.theme-neon .field label,
 body.theme-neon .checkbox-row label,
 body.theme-neon .counter-label {
-  color: #d9d9d9;
+
+  color: #d0d0d0;
 }
 
-/* PREÇOS */
+/* =========================================================
+   PREÇOS
+   ========================================================= */
+
 body.theme-neon .price {
-  color: #ff5a5a;
-  text-shadow: 0 0 8px rgba(255,255,255,0.35);
+
+  color: #ff6666;
+
+  font-weight: bold;
+
+  text-shadow:
+    0 0 8px rgba(255,80,80,0.3);
 }
 
-/* SELECT */
+/* =========================================================
+   SELECTS
+   ========================================================= */
+
 body.theme-neon select {
-  background: #111;
-  color: #fff;
-  border: 1px solid #444;
+
+  background:
+    linear-gradient(
+      180deg,
+      #181818,
+      #101010
+    );
+
+  color: #ffffff;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+}
+
+body.theme-neon .qty-input {
+
+  background:
+    linear-gradient(
+      180deg,
+      #181818,
+      #101010
+    );
+
+  color: #ffffff;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+}
+
+body.theme-neon .qty-input:focus {
+
+  outline: none;
+
+  border-color: #ff4b4b;
+
+  box-shadow:
+    0 0 12px rgba(255,75,75,0.25);
+
 }
 
 body.theme-neon select:focus {
-  outline: 2px solid #ff2a2a;
+
+  outline: 2px solid #ff4b4b;
+
+  box-shadow:
+    0 0 12px rgba(255,75,75,0.25);
 }
 
-/* BOTÕES */
+/* =========================================================
+   CHECKBOX
+   ========================================================= */
+
+body.theme-neon input[type="checkbox"] {
+
+  accent-color: #ff3b3b;
+}
+
+/* =========================================================
+   BOTÕES CONTADOR
+   ========================================================= */
+
 body.theme-neon .counter-controls button {
-  background: #1a1a1a;
-  color: #fff;
-  border: 1px solid #ff2a2a;
+
+  background:
+    linear-gradient(
+      180deg,
+      #2a2a2a,
+      #121212
+    );
+
+  color: #ffffff;
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  transition:
+    all 0.2s ease;
 }
 
 body.theme-neon .counter-controls button:hover {
-  background: #ff1a1a;
-  box-shadow: 0 0 12px rgba(255,0,0,0.5);
+
+  background:
+    linear-gradient(
+      180deg,
+      #ff4b4b,
+      #a80000
+    );
+
+  transform:
+    translateY(-2px) scale(1.05);
+
+  box-shadow:
+
+    0 0 14px rgba(255,75,75,0.35),
+
+    inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
-/* RESET + THEME BUTTON */
-body.theme-neon .reset-btn,
-body.theme-neon .theme-toggle-btn {
-  color: #ff2a2a;
-  border-color: #ff2a2a;
-}
+/* =========================================================
+   BOT BAR
+   ========================================================= */
 
-body.theme-neon .theme-toggle-btn:hover {
-  background: #ff1a1a;
-  color: #fff;
-}
-
-/* BOT BAR */
 body.theme-neon .bot-bar {
-  background: linear-gradient(180deg, #0a0a0a, #161616);
-  box-shadow: 0 -4px 16px rgba(255,0,0,0.25);
+
+  background:
+    linear-gradient(
+      180deg,
+      #121212,
+      #1c1c1c
+    );
+
+  border-top:
+    1px solid rgba(255,59,59,0.18);
+
+  box-shadow:
+    0 -6px 18px rgba(255,59,59,0.08);
 }
 
 body.theme-neon .marquee span {
-  color: #ff2a2a;
-  text-shadow: 0 0 8px rgba(255,0,0,0.6);
+
+  color: #ffffff;
+
+  letter-spacing: 2px;
+
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.12);
 }
 
-/* ÍCONE PARCERIA */
+/* =========================================================
+   ÍCONE PARCERIA
+   ========================================================= */
+
 body.theme-neon .vendas-checkbox-label i {
-  color: #ff2a2a;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 10px rgba(255,75,75,0.25);
 }
 
 body.theme-neon .vendas-checkbox-label input:checked + i {
-  color: #ffffff;
-  text-shadow: 0 0 8px rgba(255,255,255,0.6);
+
+  color: #ff4b4b;
+
+  text-shadow:
+    0 0 12px rgba(255,255,255,0.45);
 }
 
+/* =========================================================
+   ÍCONES ANIMADOS
+   ========================================================= */
+
+body.theme-neon label i,
+body.theme-neon .counter-label i {
+
+  margin-left: 8px;
+
+  color: #ff4b4b;
+
+  text-shadow:
+
+    0 0 8px rgba(255,75,75,0.55),
+
+    0 0 16px rgba(255,75,75,0.2);
+}
+
+/* MOTOR */
+body.theme-neon .icon-gear {
+
+  animation:
+    gearSpin 4s linear infinite;
+}
+
+/* RODAS */
+body.theme-neon .icon-wheel {
+
+  animation:
+    wheelSpin 1.2s linear infinite;
+}
+
+/* TURBO */
+body.theme-neon .icon-fire {
+
+  animation:
+
+    fireAnim 0.8s ease-in-out infinite,
+
+    glowPulse 1.5s ease-in-out infinite;
+}
+
+/* NITRO */
+body.theme-neon .icon-rocket {
+
+  animation:
+    rocketMove 1s ease-in-out infinite;
+}
+
+/* BLINDAGEM */
+body.theme-neon .icon-shield {
+
+  animation:
+    shieldPulse 1.6s ease-in-out infinite;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+body.theme-neon::-webkit-scrollbar {
+
+  width: 10px;
+}
+
+body.theme-neon::-webkit-scrollbar-track {
+
+  background: #0a0a0a;
+}
+
+body.theme-neon::-webkit-scrollbar-thumb {
+
+  background: #ff3b3b;
+
+  border-radius: 10px;
+}
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+
+@keyframes rpmBar {
+
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes totalPulse {
+
+  0% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes shineMove {
+
+  0% {
+    left: -60%;
+  }
+
+  100% {
+    left: 140%;
+  }
+}
+
+@keyframes gearSpin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wheelSpin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes fireAnim {
+
+  0% {
+    transform: scale(1) rotate(-2deg);
+  }
+
+  50% {
+    transform: scale(1.15) rotate(2deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(-2deg);
+  }
+}
+
+@keyframes glowPulse {
+
+  0% {
+    text-shadow:
+      0 0 4px rgba(255,80,80,0.4);
+  }
+
+  50% {
+    text-shadow:
+      0 0 14px rgba(255,80,80,0.95);
+  }
+
+  100% {
+    text-shadow:
+      0 0 4px rgba(255,80,80,0.4);
+  }
+}
+
+@keyframes rocketMove {
+
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes shieldPulse {
+
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+
+    transform: scale(1.12);
+
+    text-shadow:
+      0 0 12px rgba(255,255,255,0.45);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ================= COMISSÃO 30% ================= */
+
+.comissao-row {
+
+  margin-top: 10px;
+
+  padding-top: 10px;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+}
+
+.comissao-row #comissao30 {
+
+  min-width: 80px;
+
+  text-align: center;
+
+  font-weight: bold;
+
+  color: #66ffcc;
+
+  text-shadow: 0 0 6px rgba(102,255,204,0.6);
+
+}
+
+body.theme-light .comissao-row #comissao30 {
+
+  color: #1fa37a;
+
+}
+
+body.theme-neon .comissao-row #comissao30 {
+
+  color: #ff4b4b;
+
+  text-shadow:
+    0 0 10px rgba(255,75,75,0.45);
+
+}
 
 /* =========================================================
    FIM DO ARQUIVO CSS
