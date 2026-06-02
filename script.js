@@ -55,7 +55,51 @@ fullTuningBlind.addEventListener('change', () => {
   calculateTotal();
 });
 
-/* ===== SWITCH VENDAS ( PNEU / REPARO ) ===== */
+function calculateComissao30() {
+
+  let subtotal = 0;
+
+  const reparo = document.querySelector(
+    '.counter-row:nth-of-type(1) .qty-input[data-price]'
+  );
+
+  const vendasInputs = document.querySelectorAll(
+    '.qty-input'
+  );
+
+  vendasInputs.forEach(input => {
+
+    const preco = Number(input.dataset.price);
+
+    if (
+      preco === 1200 ||
+      preco === 960 ||
+      preco === 900 ||
+      preco === 720 ||
+      preco === 768
+    ) {
+
+      subtotal +=
+        Number(input.value) * preco;
+
+    }
+
+  });
+
+  const comissao = subtotal * 0.30;
+
+  const campo = document.getElementById('comissao30');
+
+  if (campo) {
+
+    campo.textContent =
+      comissao.toLocaleString('pt-BR');
+
+  }
+
+}
+
+/* ===== SWITCH VENDAS ( PNEU / REPARO /CHAVE DE RODAS ) ===== */
 vendasSwitch.addEventListener("change", () => {
   updateVendasValues();
   calculateTotal();
@@ -65,10 +109,13 @@ function updateVendasValues() {
   const labels = document.querySelectorAll('.counter-row .counter-label');
   labels.forEach(label => {
     if (label.textContent.trim().startsWith("Reparo") && !label.textContent.includes("Carro")) {
-      label.nextElementSibling.querySelector("[data-qty]").dataset.price = vendasSwitch.checked ? 1000 : 1200;
+      label.nextElementSibling.querySelector("[data-qty]").dataset.price = vendasSwitch.checked ? 960 : 1200;
     }
     if (label.textContent.trim().startsWith("Pneu")) {
-      label.nextElementSibling.querySelector("[data-qty]").dataset.price = vendasSwitch.checked ? 800 : 900;
+      label.nextElementSibling.querySelector("[data-qty]").dataset.price = vendasSwitch.checked ? 720 : 900;
+    }
+    if (label.textContent.trim().startsWith("Chave de Roda")) {
+      label.nextElementSibling.querySelector("[data-qty]").dataset.price = vendasSwitch.checked ? 768 : 960;
     }
   });
 }
@@ -88,17 +135,77 @@ function calculateTotal() {
   });
 
   document.querySelectorAll('[data-qty]').forEach(el => {
-    total += Number(el.textContent) * Number(el.dataset.price);
+
+  let quantidade = 0;
+
+  if (el.tagName === 'INPUT') {
+    quantidade = Number(el.value);
+  } else {
+    quantidade = Number(el.textContent);
+  }
+
+  total += quantidade * Number(el.dataset.price);
+
   });
 
   document.getElementById('total').textContent =
     total.toLocaleString('pt-BR');
+
+  calculateComissao30();
+  }
+
+/* ===== CAMPOS NUMÉRICOS EDITÁVEIS ===== */
+function updateInputQty(input) {
+
+  let value = Number(input.value);
+
+  if (isNaN(value)) {
+    value = 0;
+  }
+
+  if (value < 0) {
+    value = 0;
+  }
+
+  if (value > 500) {
+    value = 500;
+  }
+
+  input.value = value;
+
+  calculateTotal();
 }
 
-/* ===== CONTADORES ===== */
+/* ===== CONTADORES - CAMPOS EDITÁVEIS ===== */
 function changeQty(btn, val) {
-  const span = btn.parentElement.querySelector('[data-qty]');
-  span.textContent = Math.max(0, Number(span.textContent) + val);
+
+  const field = btn.parentElement.querySelector('[data-qty]');
+
+  if (field.tagName === 'INPUT') {
+
+    let current = Number(field.value);
+
+    current += val;
+
+    if (current < 0) {
+      current = 0;
+    }
+
+    if (current > 500) {
+      current = 500;
+    }
+
+    field.value = current;
+
+  } else {
+
+    field.textContent = Math.max(
+      0,
+      Number(field.textContent) + val
+    );
+
+  }
+
   calculateTotal();
 }
 
@@ -107,9 +214,29 @@ function resetCalculator() {
   document.querySelectorAll('input[type="checkbox"]').forEach(el => el.checked = false);
   document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
   document.querySelectorAll('[data-qty]').forEach(el => {
+
+  if (el.tagName === 'INPUT') {
+    el.value = 0;
+  } else {
     el.textContent = 0;
-    el.dataset.price = el.parentElement.previousElementSibling.querySelector(".price") ? el.parentElement.previousElementSibling.querySelector(".price").textContent.replace(/\D/g,'') : el.dataset.price;
-  });
+  }
+
+  const priceElement =
+    el.parentElement.previousElementSibling?.querySelector(".price");
+
+  if (priceElement) {
+    el.dataset.price =
+      priceElement.textContent.replace(/\D/g,'');
+  }
+
+});
+
+const comissao = document.getElementById('comissao30');
+
+if (comissao) {
+  comissao.textContent = '0';
+}
+
   document.getElementById('total').textContent = '0';
 }
 
